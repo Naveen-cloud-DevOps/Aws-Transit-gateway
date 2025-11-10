@@ -1,0 +1,19 @@
+1.Create VPC-A with CIDR range 10.0.0.0/16 in North Virginia region with a subnet and bastion host server without key and modified the SG
+2.Create VPC-B with CIDR range 172.16.0.0/16 with subnet and server named TG-1 with private key and modify the SG
+3.Connect to the VPC-A Bastion host server
+4.Create a Transit Gateway (TGW) in North Virginia
+5.Create TGW Attachments for VPC-A and VPC-B
+6.Now go to VPC-A route table in North Virginia region and update the VPC-B CIDR as destination and target
+7.Now go to VPC-B route table in North Virginia region and update the VPC-A CIDR as destination and target
+8.Connect to VPC-B TG-1 server
+9.Create VPC-C with CIDR range 192.168.0.0/16 in Oregon region with subnet and server named as TG-2 with private key and modified SG
+10.Create TGW in Oregon region and create TGW attachment for VPC-C TG-2 server
+11.Now go to VPC-C route table in Oregon region and edit the route as VPC-B CIDR as destination and target
+12.Now go to VPC-B route table in North Virginia region and edit the route as VPC-C CIDR as destination and target
+13.Need to create TGW Peering (North Virginia ↔️ Oregon)
+14.Go to North Virginia, Create TGW attachment with name as Peering > Requester ID as North Virginia TGW ID > Attach type as Peering > Select my account with different regions > Acceptor ID as Oregon TGW ID
+15.Now go to Oregon Region TGW attachment and accept the request
+16.Now try to connect TG-2 Server of VPC-C Oregon region but it will not be connected
+17.Go to North Virginia region, TGW route table > select routes > Create Static routing > Give VPC-C CIDR as destination and target as peering
+18.Go to Oregon Region, TGW Routable > select routes > Create static routing > give VPC-B CIDR as destination and target as peering
+19.Now try to connect TG-2 server of VPC-C Oregon region : It will be connected
